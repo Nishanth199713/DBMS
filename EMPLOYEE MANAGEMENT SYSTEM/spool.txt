@@ -1,0 +1,155 @@
+mysql> source test2.txt
+Query OK, 0 rows affected (0.02 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> alter table EMPLOYEE add FOREIGN KEY (Super_ssn) REFERENCES EMPLOYEE(Ssn);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table EMPLOYEE add FOREIGN KEY (Dno) REFERENCES DEPARTMENT (Dnumber);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEE;
++----------+-------+------------+-----------+------------+----------------------------+------+----------+-----------+-----+
+| Fname    | Minit | Lname      | Ssn       | Bdate      | Address                    | Sex  | Salary   | Super_ssn | Dno |
++----------+-------+------------+-----------+------------+----------------------------+------+----------+-----------+-----+
+| Jon      | C     | Jones      | 111111401 | 1967-11-14 | 111 Allgod Atlanta GA      | M    | 45000.00 | 666666603 |   3 |
+| x        | B     | Stones     | 123456789 | 1966-01-09 | 731 Fonden Houston TX      | M    | 30000.00 | NULL      |   1 |
+| Virat    | K     | Kohli      | 222225201 | 1984-05-22 | 266 McGrudy Milwaukee WI   | M    | 56000.00 | 888665545 |   4 |
+| Franklin | T     | Roosevlt   | 333445555 | 1975-12-08 | 638 Ross Houston TX        | M    | 40000.00 | NULL      |   5 |
+| Brad     | Y     | Pitt       | 432765098 | 1978-02-13 | 176 Mail St Atlanta GA     | M    | 44000.00 | 333445555 |   5 |
+| Andy     | C     | Samberg    | 444444444 | 1974-06-21 | 967 Jord Milwaukee WI      | M    | 53000.00 | 888665545 |   4 |
+| Kim      | B     | Clijsters  | 453453553 | 1978-07-31 | 5631 Rise Houston TX       | F    | 25000.00 | 990110110 |  12 |
+| Justin   | L     | Timberlake | 511111102 | 1956-01-12 | 2342 Mayil Atlanta GA      | M    | 40000.00 | 123456789 |   1 |
+| Samuel   | L     | Jackson    | 663666603 | 1973-06-09 | 417 Hancoc Ave Chicago IL  | M    | 41000.00 | 333445555 |   5 |
+| Jane     | J     | Harvey     | 666636601 | 1976-01-14 | 234 Linn Chicago IL        | F    | 36000.00 | 990110110 |  12 |
+| Billie   | W     | King       | 666665602 | 1946-04-16 | 976 Boon Trace Chicago IL  | F    | 44000.00 | 123456789 |   1 |
+| Red      | A     | Bacher     | 666666600 | 1960-05-21 | 196 Elm Pike Miami FL      | M    | 33500.00 | 990110110 |  12 |
+| Jennifer | S     | Lawrence   | 666666603 | 1948-06-20 | 291 Barry Bellaire TX      | F    | 43000.00 | NULL      |   3 |
+| Andy     | G     | Samberg    | 666666608 | 1980-01-11 | 433 Man Street Miami FL    | M    | 37000.00 | 666666603 |   3 |
+| Ramesh   | L     | Kannan     | 666884344 | 1966-09-15 | 975 Fire Pak Sacramento CA | M    | 38000.00 | 888665545 |   4 |
+| Phil     | M     | Jones      | 666884444 | 1985-07-20 | 089 Las Colinas Dallas TX  | M    | 23000.00 | 666666603 |   3 |
+| James    | E     | Wan        | 888665545 | 1936-11-10 | 450 Stoner Houston TX      | M    | 55000.00 | NULL      |   4 |
+| Wilson   | C     | Fisk       | 984439922 | 1977-08-15 | 848 Mitchell Dallas TX     | M    | 40000.00 | 333445555 |   5 |
+| Ahmad    | V     | Jabbar     | 987987587 | 1965-03-29 | 980 Dals Houston TX        | M    | 25000.00 | 123456789 |   1 |
+| Alicia   | J     | Fox        | 990110110 | 1965-01-19 | 3321 Cast Spring Dallas TX | F    | 25000.00 | NULL      |  12 |
++----------+-------+------------+-----------+------------+----------------------------+------+----------+-----------+-----+
+20 rows in set (0.00 sec)
+
+mysql> SELECT * FROM DEPARTMENT;
++-------------+---------+-----------+----------------+
+| Dname       | Dnumber | Mgr_ssn   | Mgr_start_date |
++-------------+---------+-----------+----------------+
+| Development |       1 | 123456789 | 1987-05-22     |
+| IT          |       3 | 990110110 | 1998-05-15     |
+| Support     |       4 | 888665545 | 1993-01-01     |
+| Head Office |       5 | 333445555 | 1971-06-19     |
+| Marketing   |      12 | 666666603 | 1999-01-01     |
++-------------+---------+-----------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM DEPT_LOCATIONS;;
++---------+-----------+
+| Dnumber | Dlocation |
++---------+-----------+
+|       1 | Houston   |
+|       3 | Atlanta   |
+|       4 | Dallas    |
+|       5 | St.Louis  |
+|      12 | Seattle   |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> SELECT * FROM PROJECT;
++-----------------+---------+--------------+------+
+| Pname           | Pnumber | Plocation    | Dnum |
++-----------------+---------+--------------+------+
+| ProductA        |       1 | Houston      |    1 |
+| ProductB        |       2 | Irvine       |    5 |
+| ProductC        |       3 | Grapevine    |    5 |
+| Firmware        |       4 | Huntsville   |    4 |
+| Organization    |       5 | Houston      |    1 |
+| Benefecials     |       6 | San Andreas  |    4 |
+| OperatingSystem |       7 | Montgomery   |    3 |
+| DatabaseControl |       8 | Birmingham   |    3 |
+| Hardware        |       9 | Jacksonville |   12 |
+| 3DPrinters      |      10 | Austin       |   12 |
++-----------------+---------+--------------+------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT * FROM WORKS_ON;
++-----------+-----+-------+
+| Essn      | Pno | Hours |
++-----------+-----+-------+
+| 111111401 |   4 |  45.0 |
+| 123456789 |   1 |  32.0 |
+| 222225201 |   2 |  50.0 |
+| 333445555 |   3 |  40.0 |
+| 432765098 |   3 |  35.0 |
+| 444444444 |   5 |  39.0 |
+| 453453553 |   6 |  18.0 |
+| 511111102 |   3 |  40.0 |
+| 663666603 |   6 |  38.0 |
+| 666636601 |   7 |  27.0 |
+| 666665602 |   1 |  35.0 |
+| 666666603 |   8 |  41.0 |
+| 666666603 |   9 |  10.0 |
+| 666666608 |   8 |  42.0 |
+| 666884344 |   2 |  15.0 |
+| 666884444 |   7 |  19.0 |
+| 888665545 |   2 |  32.0 |
+| 888665545 |   4 |  47.0 |
+| 984439922 |   9 |  35.0 |
+| 987987587 |  10 |  15.0 |
+| 990110110 |   5 |  20.0 |
+| 990110110 |   7 |  27.0 |
++-----------+-----+-------+
+22 rows in set (0.00 sec)
+
+mysql> SELECT * FROM DEPENDENT;
++-----------+----------------+------+------------+--------------+
+| Essn      | Dependent_name | Sex  | Bdate      | Relationship |
++-----------+----------------+------+------------+--------------+
+| 111111401 | Viola          | F    | 1990-10-29 | Daughter     |
+| 123456789 | Ally           | F    | 1971-10-27 | Daughter     |
+| 222225201 | Bailey         | F    | 1997-02-24 | Daughter     |
+| 222225201 | Dean           | M    | 1982-10-21 | Son          |
+| 333445555 | Renee          | F    | 1972-12-15 | Spouse       |
+| 432765098 | Grady          | F    | 1986-05-14 | Spouse       |
+| 444444444 | Cyn            | M    | 1987-06-09 | Son          |
+| 453453553 | Ismael         | F    | 1976-10-19 | Spouse       |
+| 511111102 | Kirk           | F    | 1987-12-02 | Daughter     |
+| 663666603 | Jean           | F    | 1988-01-27 | Daughter     |
+| 666636601 | Rosan          | M    | 1992-06-17 | Son          |
+| 666665602 | Clifton        | F    | 1990-11-21 | Spouse       |
+| 666666603 | Mercedes       | F    | 1994-03-16 | Daughter     |
+| 666666603 | Orlando        | M    | 1973-12-27 | Son          |
+| 666666603 | Regy           | F    | 1999-02-25 | Daughter     |
+| 666666603 | Roxanne        | F    | 1996-05-09 | Spouse       |
+| 666666608 | Tom            | M    | 1993-01-21 | Son          |
+| 666884344 | Elisa          | F    | 1976-01-06 | Daughter     |
+| 666884444 | Alton          | F    | 1981-03-25 | Daughter     |
+| 888665545 | JacK           | M    | 1972-11-22 | Son          |
+| 984439922 | Tasha          | F    | 1982-03-10 | Spouse       |
+| 987987587 | Dwayne         | M    | 1981-03-19 | Son          |
+| 987987587 | Nathy          | F    | 1998-03-23 | Spouse       |
+| 987987587 | Sylvia         | F    | 1997-01-16 | Daughter     |
+| 990110110 | Lynn           | F    | 1973-07-30 | Spouse       |
++-----------+----------------+------+------------+--------------+
+25 rows in set (0.00 sec)
+
+
+mysql> \t

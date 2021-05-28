@@ -1,0 +1,21 @@
+mysql> INSERT INTO EMPLOYEE VALUES('Javier', 'HI', 'Smart', '66666666066', '1987-02-11', '355 Sec Stee Miami FL', 'M', 75000, '666666603', 5);
+ERROR 1406 (22001): Data too long for column 'Minit' at row 1
+mysql> INSERT INTO PROJECT VALUES('ProductA',11,'Orlando','5');
+ERROR 1062 (23000): Duplicate entry 'ProductA' for key 'PROJECT.Pname'
+mysql> INSERT INTO EMPLOYEE VALUES('Alicia','B','Bell','990110110','1976-09-09','848 West Dallas TX','F','24000','123456789','4');
+ERROR 1062 (23000): Duplicate entry '990110110' for key 'EMPLOYEE.PRIMARY'
+
+
+
+mysql> use nxs7727
+Database changed
+mysql> INSERT INTO EMPLOYEE VALUES('Xavier', 'H', 'Francis', '666888999', '1997-02-10', '375 Sec Stnee Atlanta GA', 'M', 85000, '666666603', 5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO PROJECT VALUES('ProductD',12,'New Hampshire','5');
+Query OK, 1 row affected (0.22 sec)
+
+mysql> INSERT INTO WORKS_ON VALUES(990110110,2,15);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> \t

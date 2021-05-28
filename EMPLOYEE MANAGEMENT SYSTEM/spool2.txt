@@ -1,0 +1,123 @@
+mysql> SELECT * FROM EMPLOYEE WHERE LNAME="JONES" OR LNAME="JAMES";
++-------+-------+-------+-----------+------------+---------------------------+------+----------+-----------+-----+
+| Fname | Minit | Lname | Ssn       | Bdate      | Address                   | Sex  | Salary   | Super_ssn | Dno |
++-------+-------+-------+-----------+------------+---------------------------+------+----------+-----------+-----+
+| Jon   | C     | Jones | 111111401 | 1967-11-14 | 111 Allgod Atlanta GA     | M    | 45000.00 | 666666603 |   7 |
+| Phil  | M     | Jones | 666884444 | 1985-07-20 | 089 Las Colinas Dallas TX | M    | 23000.00 | 666666603 |   1 |
++-------+-------+-------+-----------+------------+---------------------------+------+----------+-----------+-----+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE FNAME="KIM" OR FNAME="JAMES";
++-------+-------+-----------+-----------+------------+-----------------------+------+----------+-----------+-----+
+| Fname | Minit | Lname     | Ssn       | Bdate      | Address               | Sex  | Salary   | Super_ssn | Dno |
++-------+-------+-----------+-----------+------------+-----------------------+------+----------+-----------+-----+
+| Kim   | B     | Clijsters | 453453553 | 1978-07-31 | 5631 Rise Houston TX  | F    | 25000.00 | 990110110 |   5 |
+| James | E     | Wan       | 888665545 | 1936-11-10 | 450 Stoner Houston TX | M    | 55000.00 | NULL      |   1 |
++-------+-------+-----------+-----------+------------+-----------------------+------+----------+-----------+-----+
+2 rows in set (0.00 sec)
+
+
+mysql> SELECT FNAME,LNAME,SSN,SUM(HOURS) FROM EMPLOYEE,WORKS_ON WHERE ESSN=SSN GROUP BY SSN HAVING COUNT(PNO)>1;
++----------+----------+-----------+------------+
+| FNAME    | LNAME    | SSN       | SUM(HOURS) |
++----------+----------+-----------+------------+
+| Jennifer | Lawrence | 666666603 |       51.0 |
+| James    | Wan      | 888665545 |       79.0 |
+| Alicia   | Fox      | 990110110 |       47.0 |
++----------+----------+-----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT P.PNAME,P.PNUMBER,P.PLOCATION,COUNT(DISTINCT W.ESSN) FROM PROJECT AS P,WORKS_ON AS W WHERE W.PNO=P.PNUMBER GROUP BY PNUMBER;
++-----------------+---------+--------------+------------------------+
+| PNAME           | PNUMBER | PLOCATION    | COUNT(DISTINCT W.ESSN) |
++-----------------+---------+--------------+------------------------+
+| ProductA        |       1 | Houston      |                      2 |
+| ProductB        |       2 | Irvine       |                      3 |
+| ProductC        |       3 | Grapevine    |                      3 |
+| Firmware        |       4 | Huntsville   |                      2 |
+| Organization    |       5 | Houston      |                      2 |
+| Benefecials     |       6 | San Andreas  |                      2 |
+| OperatingSystem |       7 | Montgomery   |                      3 |
+| DatabaseControl |       8 | Birmingham   |                      2 |
+| Hardware        |       9 | Jacksonville |                      2 |
+| 3DPrinters      |      10 | Austin       |                      1 |
++-----------------+---------+--------------+------------------------+
+10 rows in set (0.00 sec)
+
+
+mysql> SELECT E.SSN,E.FNAME,E.LNAME,P.PNUMBER,P.PNAME,W.HOURS FROM EMPLOYEE AS E, PROJECT AS P,WORKS_ON AS W WHERE P.DNUM=5 AND P.PLOCATION='HOUSTON' AND P.PNUMBER=W.PNO AND W.ESSN=E.SSN;
+Empty set (0.21 sec)
+
+mysql> SELECT E.FNAME,E.LNAME FROM EMPLOYEE AS E,WORKS_ON AS W WHERE W.ESSN=E.SSN GROUP BY W.ESSN HAVING SUM(W.HOURS)>40;
++----------+----------+
+| FNAME    | LNAME    |
++----------+----------+
+| Jon      | Jones    |
+| Virat    | Kohli    |
+| Jennifer | Lawrence |
+| Andy     | Samberg  |
+| James    | Wan      |
+| Alicia   | Fox      |
++----------+----------+
+6 rows in set (0.01 sec)
+
+mysql> Select e1.fname,e1.lname,count(e2.fname) from EMPLOYEE e1 inner join EMPLOYEE e2 on e1.ssn=e2.super_ssn group by e1.fname,e1.lname;
++----------+----------+-----------------+
+| fname    | lname    | count(e2.fname) |
++----------+----------+-----------------+
+| Jennifer | Lawrence |               3 |
+| James    | Wan      |               3 |
+| Franklin | Roosevlt |               3 |
+| Alicia   | Fox      |               3 |
+| John     | Stones   |               3 |
++----------+----------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(w.hours),w.pno,p.pname from WORKS_ON as w,PROJECT as p where w.pno=p.pnumber group by pno;
++--------------+-----+-----------------+
+| sum(w.hours) | pno | pname           |
++--------------+-----+-----------------+
+|         15.0 |  10 | 3DPrinters      |
+|         56.0 |   6 | Benefecials     |
+|         83.0 |   8 | DatabaseControl |
+|         92.0 |   4 | Firmware        |
+|         45.0 |   9 | Hardware        |
+|         73.0 |   7 | OperatingSystem |
+|         59.0 |   5 | Organization    |
+|         67.0 |   1 | ProductA        |
+|         97.0 |   2 | ProductB        |
+|        115.0 |   3 | ProductC        |
++--------------+-----+-----------------+
+10 rows in set (0.00 sec)
+
+mysql> select d.essn,e.fname,e.lname from DEPENDENT AS d,EMPLOYEE AS e where d.essn=e.ssn group by d.essn having count(d.dependent_name)>2;
++-----------+----------+----------+
+| essn      | fname    | lname    |
++-----------+----------+----------+
+| 666666603 | Jennifer | Lawrence |
+| 987987587 | Ahmad    | Jabbar   |
++-----------+----------+----------+
+2 rows in set (0.01 sec)
+
+mysql> select d.essn,e.fname,e.lname from DEPENDENT AS d,EMPLOYEE AS e where d.essn=e.ssn group by d.essn having count(d.dependent_name="son" || d.dependent_name="daughter")>1;
++-----------+----------+----------+
+| essn      | fname    | lname    |
++-----------+----------+----------+
+| 222225201 | Virat    | Kohli    |
+| 666666603 | Jennifer | Lawrence |
+| 987987587 | Ahmad    | Jabbar   |
++-----------+----------+----------+
+3 rows in set, 1 warning (0.00 sec)
+
+mysql> select fname,lname from EMPLOYEE e inner join DEPARTMENT d on e.dno=d.dnumber inner join DEPT_LOCATIONS dl on dl.dnumber=d.dnumber where (dl.dlocation)='Atlanta';
+Empty set (0.00 sec)
+
+mysql> SELECT D.dname,COUNT(P.pnumber) FROM DEPARTMENT as D,DEPT_LOCATIONS as dl,PROJECT as P where P.dnum=D.dnumber and dl.dnumber=D.dnumber and dl.dlocation="Houston" GROUP BY dnum;
++-------------+------------------+
+| dname       | COUNT(P.pnumber) |
++-------------+------------------+
+| Head Office |                2 |
++-------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> \t

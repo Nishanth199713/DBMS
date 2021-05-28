@@ -1,0 +1,35 @@
+mysql> use nxs7727
+Database changed
+mysql> INSERT INTO DEPARTMENT VALUES('Services',1,'123456789','2012-08-11');
+ERROR 1062 (23000): Duplicate entry '1' for key 'DEPARTMENT.PRIMARY'
+mysql> insert INTO DEPARTMENT values('Purchasing', 3, '990110110', '2013/02/02');
+ERROR 1062 (23000): Duplicate entry '3' for key 'DEPARTMENT.PRIMARY'
+mysql> insert INTO DEPARTMENT values('Customers', 12, '333445555', '2013-01-13');
+ERROR 1062 (23000): Duplicate entry '12' for key 'DEPARTMENT.PRIMARY'
+
+mysql> UPDATE DEPT_LOCATIONS SET DNUMBER=9 WHERE DLOCATION='SEATTLE';
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`nxs7727`.`DEPT_LOCATIONS`, CONSTRAINT `DEPT_LOCATIONS_ibfk_1` FOREIGN KEY (`Dnumber`) REFERENCES `DEPARTMENT` (`Dnumber`))
+
+
+mysql> UPDATE EMPLOYEE SET SALARY=55000 WHERE SSN=444444444;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> INSERT INTO EMPLOYEE VALUES('Jane', 'B', 'Smith', '666666606', '1980-03-01', '3556 W Second Street Miami FL', 'F', 85000, '666666603', 5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> UPDATE WORKS_ON SET ESSN=25 WHERE ESSN=666884444 AND PNO=1;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+
+mysql> DELETE FROM EMPLOYEE WHERE SSN='432765098';
+Query OK, 1 row affected (0.05 sec)
+
+mysql> DELETE FROM DEPARTMENT  WHERE DNUMBER='9';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEE WHERE SSN='66666608';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> \t
